@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestbook">
+	<select id="list" resultType="com.ict.db.GuestVO">
+		select * from guestbook order by idx
+	</select>
+	
+	<insert id="insert" parameterType="com.ict.db.GuestVO">
+	insert into guestbook(idx, name, subject, content, email, pwd, regdate) 
+	 values(guestbook_seq.nextval ,#{name} ,#{subject} ,#{content},#{email} ,#{pwd} ,sysdate)
+	</insert>
+	
+	<select id="detail" parameterType="String" resultType="com.ict.db.GuestVO">
+		select * from guestbook where idx = #{idx}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	delete from guestbook where idx = #{idx}
+	</delete>
+	
+	<update id="update" parameterType="com.ict.db.GuestVO">
+	update guestbook 
+	set name = #{name}, subject =#{subject} 
+						, email = #{email}, content = #{content} 
+						where idx = #{idx}
+	</update>
+	
+	<!--  
+	 
+	 parameter을 string으로
+	<select id="getSelectOne" resultType="com.ict.mybatis.Ex01_VO" parameterType="String">
+		select * from customer where custid = #{custid}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from customer
+	</select>
+	
+	<insert id="getInsert" parameterType="com.ict.mybatis.Ex01_VO">
+	insert into customer(custid, name, address, phone) 
+	 values(#{custid} ,#{name} ,#{address} ,#{phone})
+	</insert>
+	
+	 parameter을 vo로
+	<delete id="getDelete" parameterType="com.ict.mybatis.Ex01_VO">
+	delete from customer where custid = #{custid}
+	</delete>
+	
+	<update id="getUpdate" parameterType="com.ict.mybatis.Ex01_VO">
+	update customer 
+	set name = #{name}, address =#{address}
+						, phone = #{phone} where custid = #{custid}
+	</update> -->
+	
+</mapper>
